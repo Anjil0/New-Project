@@ -1,14 +1,12 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import canteen from "../../public/canteen.png";
+import canteen from "/canteen.png";
 
 const CanteenLogin = () => {
-  const [passwordVisible, setPasswordVisible] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-
-  const togglePasswordVisibility = () => setPasswordVisible(!passwordVisible);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,9 +18,13 @@ const CanteenLogin = () => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <div
-      className="flex min-h-screen justify-center items-center px-6 p-12 lg:px-8 bg-cover bg-center"
+      className="flex min-h-screen justify-center items-center px-6 lg:px-8 bg-cover bg-center"
       style={{
         backgroundImage: `url('https://thirdeyesecure.com/wp-content/uploads/2024/06/hotel_management_img-4.png')`,
         backgroundBlendMode: "overlay",
@@ -31,7 +33,7 @@ const CanteenLogin = () => {
     >
       <div className="w-full max-w-md space-y-8 bg-white bg-opacity-90 p-10 rounded-xl shadow-md">
         <div className="text-center">
-          <div className="bg-stone-600 p-2 rounded-full inline-block">
+          <div className="bg-stone-600 p-2 rounded-full inline-block mb-4">
             <div className="relative flex justify-center items-center w-24 h-24">
               <img
                 src={canteen}
@@ -40,15 +42,15 @@ const CanteenLogin = () => {
               />
             </div>
           </div>
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">
+          <h2 className="text-3xl font-bold text-gray-900">
             Canteen Management System
           </h2>
-          <p className="mt-2 text-sm text-gray-600">Sign in to your account</p>
+          <p className="text-sm text-gray-600">Sign in to your account</p>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-6" onSubmit={handleSubmit}>
           {error && (
             <div
-              className="bg-red-100 border border-red-400 text-red-700 px-4 p-3 rounded relative"
+              className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative"
               role="alert"
             >
               <span className="block sm:inline">{error}</span>
@@ -60,7 +62,7 @@ const CanteenLogin = () => {
               name="username"
               type="text"
               required
-              className="relative block w-full rounded-md border-0 p-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              className="relative block w-full rounded-md border-0 p-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -69,9 +71,9 @@ const CanteenLogin = () => {
               <input
                 id="password"
                 name="password"
-                type={passwordVisible ? "text" : "password"}
+                type={showPassword ? "text" : "password"}
                 required
-                className="relative block w-full rounded-md border-0 p-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full rounded-md border-0 p-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -79,61 +81,43 @@ const CanteenLogin = () => {
               <button
                 type="button"
                 onClick={togglePasswordVisibility}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                className="absolute inset-y-0 right-0 flex items-center pr-3"
               >
-                {passwordVisible ? (
-                  <FaEyeSlash className="h-5 w-5 text-gray-500" />
+                {showPassword ? (
+                  <FaEyeSlash className="h-5 w-5 text-gray-800" />
                 ) : (
-                  <FaEye className="h-5 w-5 text-gray-500" />
+                  <FaEye className="h-5 w-5 text-gray-800" />
                 )}
               </button>
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-              />
-              <label
-                htmlFor="remember-me"
-                className="ml-2 block text-sm text-gray-900"
-              >
-                Remember me
-              </label>
-            </div>
-
-            <div className="text-sm">
-              <a
-                href="#"
-                className="font-medium text-indigo-600 hover:text-indigo-500"
-              >
-                Forgot your password?
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <button
-              type="submit"
-              className="group relative flex w-full justify-center rounded-md bg-indigo-600 p-2 px-3 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Sign in
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-4 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mb-2"
+          >
+            Sign in
+          </button>
         </form>
-        <p className="mt-2 text-center text-sm text-gray-600">
-          Not registered?{" "}
+        
+        {/* Updated this section */}
+        <div className="flex justify-between text-sm text-gray-600">
           <a
             href="#"
             className="font-medium text-indigo-600 hover:text-indigo-500"
           >
-            Contact your system administrator
+            Forgot your password?
           </a>
-        </p>
+          <p className="ml-2">
+            Not yet registered?{" "}
+            <a
+              href="#"
+              className="font-medium text-indigo-600 hover:text-indigo-500"
+            >
+              Register Now
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   );
