@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import canteen from "/canteen.png";
+import { useNavigate } from "react-router-dom";
 
 const CanteenLogin = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -24,7 +26,7 @@ const CanteenLogin = () => {
 
   return (
     <div
-      className="flex min-h-screen justify-center items-center px-6 lg:px-8 bg-cover bg-center"
+      className="flex h-[650px] mt-4 justify-center items-center px-6 lg:px-8 bg-cover bg-center"
       style={{
         backgroundImage: `url('https://thirdeyesecure.com/wp-content/uploads/2024/06/hotel_management_img-4.png')`,
         backgroundBlendMode: "overlay",
@@ -48,20 +50,11 @@ const CanteenLogin = () => {
           <p className="text-sm text-gray-600">Sign in to your account</p>
         </div>
         <form className="space-y-6" onSubmit={handleSubmit}>
-          {error && (
-            <div
-              className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative"
-              role="alert"
-            >
-              <span className="block sm:inline">{error}</span>
-            </div>
-          )}
           <div className="space-y-4 rounded-md shadow-sm">
             <input
               id="username"
               name="username"
               type="text"
-              required
               className="relative block w-full rounded-md border-0 p-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600 sm:text-sm"
               placeholder="Username"
               value={username}
@@ -92,6 +85,15 @@ const CanteenLogin = () => {
             </div>
           </div>
 
+          {error && (
+            <div
+              className="!my-4 bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded relative"
+              role="alert"
+            >
+              <span className="block sm:inline">{error}</span>
+            </div>
+          )}
+
           <button
             type="submit"
             className="group relative flex w-full justify-center rounded-md bg-indigo-600 py-2 px-4 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mb-2"
@@ -99,8 +101,7 @@ const CanteenLogin = () => {
             Sign in
           </button>
         </form>
-        
-        {/* Updated this section */}
+
         <div className="flex justify-between text-sm text-gray-600">
           <a
             href="#"
@@ -110,12 +111,12 @@ const CanteenLogin = () => {
           </a>
           <p className="ml-2">
             Not yet registered?{" "}
-            <a
-              href="#"
-              className="font-medium text-indigo-600 hover:text-indigo-500"
+            <button
+              onClick={() => navigate("/register")}
+              className="relative font-medium text-indigo-600 hover:text-indigo-800 before:absolute before:left-0 before:-bottom-0.5 before:w-0 before:h-0.5 before:bg-indigo-600 before:transition-all before:duration-300 hover:before:w-full"
             >
               Register Now
-            </a>
+            </button>
           </p>
         </div>
       </div>
